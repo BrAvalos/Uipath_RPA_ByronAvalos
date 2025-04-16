@@ -1,0 +1,117 @@
+{
+  "DisplayName": "Main",
+  "Tooltip": null,
+  "HelpLink": null,
+  "Color": null,
+  "OriginalIconFileName": null,
+  "Arguments": [
+    {
+      "Name": "pathCaptcha",
+      "DisplayName": "pathCaptcha",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": "utils\\\\Captcha.csv",
+      "Widget": null,
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    },
+    {
+      "Name": "pathLib",
+      "DisplayName": "pathLib",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": "../../lib/simpleCaptcha0.2/captchaImages/",
+      "Widget": null,
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    },
+    {
+      "Name": "orderBy",
+      "DisplayName": "orderBy",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": "Localidad DESC",
+      "Widget": null,
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    },
+    {
+      "Name": "pathProvince",
+      "DisplayName": "pathProvince",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": "utils\\\\Provincias.csv",
+      "Widget": null,
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    },
+    {
+      "Name": "numPages",
+      "DisplayName": "numPages",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": "2",
+      "Widget": null,
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    },
+    {
+      "Name": "pathDownload",
+      "DisplayName": "pathDownload",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": "C:\\Users\\uipath\\Downloads\\",
+      "Widget": null,
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    },
+    {
+      "Name": "numAttempts",
+      "DisplayName": "numAttempts",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": "3",
+      "Widget": null,
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    },
+    {
+      "Name": "subject",
+      "DisplayName": "subject",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": "Contactos Descargados",
+      "Widget": null,
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    },
+    {
+      "Name": "emailSupport",
+      "DisplayName": "emailSupport",
+      "Category": null,
+      "Tooltip": null,
+      "Placeholder": "byron_avalos@gruposuperior.com",
+      "Widget": null,
+      "IsRequired": false,
+      "IsPrincipal": true,
+      "ArgumentType": 0,
+      "DataSourceItems": null
+    }
+  ]
+}

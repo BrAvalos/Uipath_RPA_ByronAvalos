@@ -1,0 +1,13 @@
+﻿{
+  "Name": "Chrome  Guía Telefónica CNT EP ",
+  "Type": "Screen",
+  "Id": "YzGzXrtdN022c2d-BWh49Q",
+  "Reference": "-sb5hFjrTEa9Dj62lBhmXQ/YzGzXrtdN022c2d-BWh49Q",
+  "ParentRef": "-sb5hFjrTEa9Dj62lBhmXQ/6y2aRORj1kyviMo5cSdAdQ",
+  "Created": "2025-04-15T20:15:55.8499067Z",
+  "Updated": "2025-04-15T20:15:55.8499067Z",
+  "CreatedBy": [
+    "UiPath.UIAutomationCore, Version=25.2.1.0, Culture=neutral, PublicKeyToken=null",
+    "UiPath.Platform, Version=24.12.3.0, Culture=neutral, PublicKeyToken=null"
+  ]
+}
