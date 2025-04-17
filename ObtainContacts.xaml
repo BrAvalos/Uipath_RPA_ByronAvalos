@@ -147,17 +147,13 @@
       <AssemblyReference>System.Linq.Async.Queryable</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Flowchart DisplayName="ObtenerAgenda" sap:VirtualizedContainerService.HintSize="1221,315.02399999999994" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+  <Flowchart DisplayName="ObtenerAgenda" sap:VirtualizedContainerService.HintSize="1174,315.02399999999994" sap2010:WorkflowViewState.IdRef="Flowchart_1">
     <Flowchart.Variables>
       <Variable x:TypeArguments="s:String[]" Name="ProvinceList" />
-      <Variable x:TypeArguments="x:String" Name="lastname">
-        <Variable.Default>
-          <Literal x:TypeArguments="x:String">ASDSAJD</Literal>
-        </Variable.Default>
-      </Variable>
-      <Variable x:TypeArguments="x:String" Default="byron_avalos@gruposuperior.com" Name="email" />
-      <Variable x:TypeArguments="x:String" Default="PICHINCHA" Name="province" />
-      <Variable x:TypeArguments="sd:DataTable" Default="[New System.Data.DataTable]" Name="dtContact" />
+      <Variable x:TypeArguments="x:String" Name="lastname" />
+      <Variable x:TypeArguments="x:String" Name="email" />
+      <Variable x:TypeArguments="x:String" Name="province" />
+      <Variable x:TypeArguments="sd:DataTable" Name="dtContact" />
       <Variable x:TypeArguments="sd:DataTable" Name="dtContactOrder" />
       <Variable x:TypeArguments="x:String" Name="pathExcel" />
     </Flowchart.Variables>
@@ -183,6 +179,7 @@
       <Sequence DisplayName="Input" sap:VirtualizedContainerService.HintSize="110,70" sap2010:WorkflowViewState.IdRef="Sequence_20">
         <Sequence.Variables>
           <Variable x:TypeArguments="sd:DataTable" Name="dtProvince" />
+          <Variable x:TypeArguments="x:String" Name="formFilter" />
         </Sequence.Variables>
         <sap:WorkflowViewStateService.ViewState>
           <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -205,15 +202,40 @@
             <InArgument x:TypeArguments="s:String[]">[dtProvince.AsEnumerable().Select(Function(row) row("Provincia").ToString()).ToArray()]</InArgument>
           </Assign.Value>
         </Assign>
-        <ufa:ShowFormActivity Height="{x:Null}" InstanceName="{x:Null}" Left="{x:Null}" ShowInTaskbar="{x:Null}" ShowMargin="{x:Null}" Title="{x:Null}" Top="{x:Null}" TopMost="{x:Null}" Width="{x:Null}" WindowState="{x:Null}" DisplayName="Mostrar formulario" FormId="23c05918-3821-44a8-b0da-ed95fd471143" sap:VirtualizedContainerService.HintSize="434,218" sap2010:WorkflowViewState.IdRef="ShowFormActivity_1" IsAsync="False">
+        <ufa:ShowFormActivity Height="{x:Null}" Left="{x:Null}" ShowMargin="{x:Null}" Title="{x:Null}" Top="{x:Null}" TopMost="{x:Null}" Width="{x:Null}" WindowState="{x:Null}" DisplayName="Mostrar formulario" FormId="23c05918-3821-44a8-b0da-ed95fd471143" sap:VirtualizedContainerService.HintSize="434,218" sap2010:WorkflowViewState.IdRef="ShowFormActivity_1" InstanceName="[formFilter]" IsAsync="False">
           <ufa:ShowFormActivity.Arguments>
             <InArgument x:TypeArguments="scg:IEnumerable(x:String)" x:Key="selectProvince.Items">[ProvinceList]</InArgument>
             <OutArgument x:TypeArguments="x:String" x:Key="lastname">[lastname]</OutArgument>
             <OutArgument x:TypeArguments="x:String" x:Key="selectProvince">[province]</OutArgument>
             <OutArgument x:TypeArguments="x:String" x:Key="email">[email]</OutArgument>
           </ufa:ShowFormActivity.Arguments>
+          <ufa:ShowFormActivity.ShowInTaskbar>
+            <InArgument x:TypeArguments="s:Nullable(x:Boolean)">
+              <Literal x:TypeArguments="s:Nullable(x:Boolean)" Value="True" />
+            </InArgument>
+          </ufa:ShowFormActivity.ShowInTaskbar>
         </ufa:ShowFormActivity>
-        <ui:MessageBox Caption="{x:Null}" ChosenButton="{x:Null}" AutoCloseAfter="00:00:00" DisplayName="Message Box" sap:VirtualizedContainerService.HintSize="434,117" sap2010:WorkflowViewState.IdRef="MessageBox_1" Text="[&quot;Apellido: &quot; + lastname + &quot;Email:&quot; + emailSupport + &quot; Provincia&quot; + province]" />
+        <If Condition="[String.IsNullOrEmpty(lastname) OrElse String.IsNullOrEmpty(province) OrElse String.IsNullOrEmpty(email)]" sap:VirtualizedContainerService.HintSize="434,400" sap2010:WorkflowViewState.IdRef="If_3">
+          <If.Then>
+            <Sequence DisplayName="Then" sap:VirtualizedContainerService.HintSize="416,173" sap2010:WorkflowViewState.IdRef="Sequence_21">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <TerminateWorkflow DisplayName="Terminate Workflow" sap:VirtualizedContainerService.HintSize="382,113" sap2010:WorkflowViewState.IdRef="TerminateWorkflow_1" Reason="Formulario invalido" />
+            </Sequence>
+          </If.Then>
+          <If.Else>
+            <Sequence DisplayName="Else" sap:VirtualizedContainerService.HintSize="416,89" sap2010:WorkflowViewState.IdRef="Sequence_22">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </Sequence>
+          </If.Else>
+        </If>
         <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="434,164" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Info" Message="[DateTime.Now.ToString+ &quot; Parámetros ingresados.&#xD;&#xA;Apellido: &quot;+lastname+ &quot;&#xD;&#xA;Provincia: &quot;+province+ &quot;&#xD;&#xA;Email: &quot;+email+ &quot;&#xD;&#xA;&quot;+&#xD;&#xA;DateTime.Now.ToString+ &quot; Fin parámetros de busqueda &quot;]">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -245,22 +267,22 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
             </ui:LogMessage>
-            <ui:RetryScope DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="578,3396" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="[numAttempts]">
+            <ui:RetryScope DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="578,3354" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="[numAttempts]">
               <ui:RetryScope.ActivityBody>
                 <ActivityAction>
-                  <Sequence DisplayName="Acción" sap:VirtualizedContainerService.HintSize="536,3189" sap2010:WorkflowViewState.IdRef="Sequence_16">
+                  <Sequence DisplayName="Acción" sap:VirtualizedContainerService.HintSize="536,3067" sap2010:WorkflowViewState.IdRef="Sequence_16">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
-                    <uix:NApplicationCard AttachMode="ByInstance" CloseMode="IfOpenedByAppBrowser" DisplayName="Chrome  Guía Telefónica CNT EP" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="502,3129" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" InteractionMode="DebuggerApi" OpenMode="Always" ScopeGuid="7c73b282-15f9-4cd7-819c-32bc9ae76dea" Version="V2" WindowResize="Maximize">
+                    <uix:NApplicationCard AttachMode="ByInstance" CloseMode="IfOpenedByAppBrowser" DisplayName="Chrome  Guía Telefónica CNT EP" HealingAgentBehavior="Job" sap:VirtualizedContainerService.HintSize="502,3007" sap2010:WorkflowViewState.IdRef="NApplicationCard_2" InteractionMode="DebuggerApi" OpenMode="Always" ScopeGuid="7c73b282-15f9-4cd7-819c-32bc9ae76dea" Version="V2" WindowResize="Maximize">
                       <uix:NApplicationCard.Body>
                         <ActivityAction x:TypeArguments="x:Object">
                           <ActivityAction.Argument>
                             <DelegateInArgument x:TypeArguments="x:Object" Name="WSSessionData" />
                           </ActivityAction.Argument>
-                          <Sequence DisplayName="Hacer" sap:VirtualizedContainerService.HintSize="468,2889" sap2010:WorkflowViewState.IdRef="Sequence_4">
+                          <Sequence DisplayName="Hacer" sap:VirtualizedContainerService.HintSize="468,2767" sap2010:WorkflowViewState.IdRef="Sequence_4">
                             <Sequence.Variables>
                               <Variable x:TypeArguments="x:String" Name="valueCaptcha" />
                               <Variable x:TypeArguments="x:String" Name="pathImage" />
@@ -468,8 +490,7 @@ Equipo de TI
                                 </uix:VerifyExecutionOptions>
                               </uix:NClick.VerifyOptions>
                             </uix:NClick>
-                            <Delay Duration="00:00:05" sap:VirtualizedContainerService.HintSize="434,122" sap2010:WorkflowViewState.IdRef="Delay_1" />
-                            <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[dtContact]" DisplayName="Extract Table Data" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Table' AddCvHeader='true' IsScrollEnabled='false'&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column-0' ReferenceIdx='0' Name='Número Telefónico'&gt;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column-1' ReferenceIdx='1' Name='Nombre del Propietario'&gt;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column-2' ReferenceIdx='2' Name='Dirección'&gt;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column-3' ReferenceIdx='3' Name='Localidad'&gt;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&#x9;&lt;Column xsi:type='DataNextLink' /&gt;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract-table get_columns_name='1' get_empty_columns='1' columns_name_source='Longest'&gt;&lt;column name='Column-0' attr='fulltext' /&gt;&lt;column name='Column-1' attr='fulltext' /&gt;&lt;column name='Column-2' attr='fulltext' /&gt;&lt;column name='Column-3' attr='fulltext' /&gt;&lt;/extract-table&gt;" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="434,189" sap2010:WorkflowViewState.IdRef="NExtractData_1" InteractionMode="Simulate" LimitExtractionTo="Page" MaximumResults="[numPages]" ScopeIdentifier="7c73b282-15f9-4cd7-819c-32bc9ae76dea" Version="V4">
+                            <uix:NExtractData AppendResults="False" ContinueOnError="True" DataTable="[dtContact]" DelayBefore="1" DisplayName="Extract Table Data" ExtractDataSettings="&lt;Table xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xmlns:xsd='http://www.w3.org/2001/XMLSchema' Type='Table' AddCvHeader='true' IsScrollEnabled='false'&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column-0' ReferenceIdx='0' Name='Número Telefónico'&gt;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column-1' ReferenceIdx='1' Name='Nombre del Propietario'&gt;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column-2' ReferenceIdx='2' Name='Dirección'&gt;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&#x9;&lt;Column xsi:type='DataColumn' ReferenceName='Column-3' ReferenceIdx='3' Name='Localidad'&gt;&#xA;&#x9;&#x9;&lt;IsValidName&gt;true&lt;/IsValidName&gt;&#xA;&#x9;&#x9;&lt;ValidationErrorMessage /&gt;&#xA;&#x9;&#x9;&lt;IsExtra&gt;false&lt;/IsExtra&gt;&#xA;&#x9;&#x9;&lt;CanExtractSimilar&gt;false&lt;/CanExtractSimilar&gt;&#xA;&#x9;&#x9;&lt;Format xsi:type='TextColumnFormat' /&gt;&#xA;&#x9;&lt;/Column&gt;&#xA;&#x9;&lt;Column xsi:type='DataNextLink' /&gt;&#xA;&lt;/Table&gt;" ExtractMetadata="&lt;extract-table get_columns_name='1' get_empty_columns='1' columns_name_source='Longest'&gt;&lt;column name='Column-0' attr='fulltext' /&gt;&lt;column name='Column-1' attr='fulltext' /&gt;&lt;column name='Column-2' attr='fulltext' /&gt;&lt;column name='Column-3' attr='fulltext' /&gt;&lt;/extract-table&gt;" HealingAgentBehavior="SameAsCard" sap:VirtualizedContainerService.HintSize="434,189" sap2010:WorkflowViewState.IdRef="NExtractData_1" InteractionMode="Simulate" LimitExtractionTo="Page" MaximumResults="[numPages]" ScopeIdentifier="7c73b282-15f9-4cd7-819c-32bc9ae76dea" Version="V4">
                               <uix:NExtractData.NextLink>
                                 <uix:TargetAnchorable BrowserURL="micnt.com.ec/cntapp/guia104/php/guia_cntat.php" CVScreenId="51dd1ca2-4dc5-4900-935d-7b5871ae896b" CvElementArea="1010, 937, 15, 16" CvType="ArrowButton" DesignTimeRectangle="1010, 938, 14, 14" DesignTimeScaleFactor="1" ElementType="Icon" FullSelectorArgument="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;table' idx='2' tag='TABLE' /&gt;&lt;webctrl tableRow='1' tag='IMG' /&gt;" FuzzySelectorArgument="&lt;webctrl tag='TABLE' /&gt;&lt;webctrl type='' tag='IMG' class='' aaname='Ir Página Siguiente' /&gt;" Guid="fb451033-bbdf-4ea2-9e20-081465f46650" ScopeSelectorArgument="&lt;html app='chrome.exe' title=':: Guía Telefónica CNT EP ::' /&gt;" SearchSteps="FuzzySelector, CV" Version="V5" Visibility="Interactive">
                                   <uix:TargetAnchorable.PointOffset>
@@ -623,7 +644,7 @@ Equipo de TI
                           <av:Size x:Key="ShapeSize">110,70</av:Size>
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
-                      <Sequence DisplayName="Email" sap:VirtualizedContainerService.HintSize="468,689" sap2010:WorkflowViewState.IdRef="Sequence_17">
+                      <Sequence DisplayName="Email" sap:VirtualizedContainerService.HintSize="110,70" sap2010:WorkflowViewState.IdRef="Sequence_17">
                         <Sequence.Variables>
                           <Variable x:TypeArguments="x:String" Name="body" />
                         </Sequence.Variables>
